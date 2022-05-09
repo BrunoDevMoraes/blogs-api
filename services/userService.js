@@ -2,7 +2,6 @@ const { User } = require('../models');
 const { createToken } = require('../jwt');
 
 const addUser = async ({ displayName, email, password, image }) => {
-  console.log(email);
   const userByEmail = await User.findOne({ where: { email } });
   if (!userByEmail) {
     const user = await User.create({
@@ -37,8 +36,23 @@ const getById = async (id) => {
   return user.dataValues;
 };
 
+const logIn = async ({ email, password }) => {
+  const userByEmail = await User.findOne({ where: { email } });
+  if (!userByEmail || userByEmail.dataValues.password !== password) {
+    return false;
+  }
+  const token = createToken({
+    id: userByEmail.dataValues.id,
+    displayName: userByEmail.dataValues.displayName,
+    image: userByEmail.dataValues.image,
+    email: userByEmail.dataValues.email,
+  });
+  return { token };
+};
+
 module.exports = {
   addUser,
   getAll,
   getById,
+  logIn,
 };
