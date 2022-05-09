@@ -1,6 +1,6 @@
-const displayNameChecker = require('../helpers/displayNameChecker');
-const emailChecker = require('../helpers/emailChecker');
-const passwordChecker = require('../helpers/passwordChecker');
+const { displayNameChecker } = require('../helpers/displayNameChecker');
+const { emailChecker } = require('../helpers/emailChecker');
+const { passwordChecker } = require('../helpers/passwordChecker');
 
 const checkUserBody = (req, res, next) => {
   const object = req.body;
