@@ -6,4 +6,6 @@ const routes = express.Router();
 
 routes.post('/', authChecker, categoriesController.addCategory);
 
+routes.get('/', authChecker, categoriesController.getAll);
+
 module.exports = routes;

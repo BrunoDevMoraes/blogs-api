@@ -7,4 +7,9 @@ const addCategory = async (name) => {
   return newCategory.dataValues;
 };
 
-module.exports = { addCategory };
+const getAll = async () => {
+  const allCategories = await Category.findAll();
+  return allCategories.map((category) => category.dataValues);
+};
+
+module.exports = { addCategory, getAll };

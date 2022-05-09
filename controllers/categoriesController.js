@@ -11,4 +11,13 @@ const addCategory = async (req, res) => {
   }
 };
 
-module.exports = { addCategory };
+const getAll = async (req, res) => {
+  try {
+    const allCategories = await categoriesService.getAll();
+    return res.status(200).json(allCategories);
+  } catch (err) {
+    return res.status(500).send({ message: err.message });
+  }
+};
+
+module.exports = { addCategory, getAll };
