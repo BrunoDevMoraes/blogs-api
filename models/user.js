@@ -2,18 +2,16 @@ module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
     'User',
     {
-    id: DataTypes.INTEGER,
-    displayName: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    image: DataTypes.STRING,
+      id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+      displayName: DataTypes.STRING,
+      email: DataTypes.STRING,
+      password: DataTypes.STRING,
+      image: DataTypes.STRING,
     },
-    {
-    timestamps: false,
-    },
+    { timestamps: false, tableName: 'Users' },
   );
-
-  User.findAllClean = async () => User.findAll().map((user) => user.dataValues);
-
+  User.associate = (models) => {
+    User.hasMany(models.BlogPost, { as: 'post', foreignKey: 'userId' });
+  };
   return User;
 };
