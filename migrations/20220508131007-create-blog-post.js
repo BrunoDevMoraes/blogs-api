@@ -23,11 +23,13 @@ module.exports = {
           key: 'id',
         },
       },
-      published: {
+      createdAt: {
+        field: 'published',
         allowNull: false,
         type: Sequelize.DATE
       },
-      updated: {
+      updatedAt: {
+        field: 'updated',
         allowNull: false,
         type: Sequelize.DATE
       }
