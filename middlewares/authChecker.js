@@ -7,7 +7,6 @@ const authChecker = (req, res, next) => {
   if (tokenStatus === false) return res.status(401).json({ message: 'Expired or invalid token' });
   req.body.payload = tokenStatus;
   next();
-
 };
 
 module.exports = {
