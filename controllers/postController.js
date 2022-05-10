@@ -5,7 +5,7 @@ const addPost = async (req, res) => {
   try {
     const post = await postService.addPost(object);
     if (post === false) return res.status(400).send({ message: '"categoryIds" not found' });
-    return res.status(200).json(post);
+    return res.status(201).json(post);
   } catch (err) {
     return res.status(500).send({ message: err.message });
   }

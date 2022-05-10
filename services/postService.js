@@ -1,20 +1,15 @@
 const { BlogPost, Category, PostsCategory } = require('../models');
 
 const addPost = async ({ title, categoryIds, content, payload }) => {
-  const categories = categoryIds;
+  const allCategories = await Category.findAll();
 
-  categories.map(async (id) => {
-    const idStatus = await Category.findByPk(id);
-    if (idStatus) {
-      return idStatus.dataValues.id;
-    }
-  });
+  const data = allCategories.map((user) => user.dataValues.id);
 
-  if (categories.length !== categoryIds.length) return false;
+  const verifiedArr = categoryIds.map((id) => data.includes(id));
 
-  const post = BlogPost.create({ title, content, userId: payload.id });
+  if (verifiedArr.includes(false)) return false;
 
-  console.log(post.dataValues);
+  const post = await BlogPost.create({ title, content, userId: payload.id });
 
   categoryIds.forEach(async (id) => PostsCategory.create({ postId: post.id, categoryId: id }));
 
